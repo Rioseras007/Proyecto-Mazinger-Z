@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mazinger Z | 4K Restoration Project Official</title>
+    <meta name="description" content="Bienvenidos al Proyecto de Restauración de Mazinger Z en 4K. Revive los 92 capítulos del anime legendario de Gō Nagai con la mejor calidad visual posible.">
+    <meta name="keywords" content="Mazinger Z, Gō Nagai, 4K Restoration, Restauración 4K, Anime Clásico, Mecha, Super Robot, Alfonso Rubio Rioseras">
+    <meta name="author" content="Alfonso Rubio Rioseras">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mazinger-z.com/">
+    <meta property="og:title" content="Mazinger Z | 4K Restoration Project Official">
+    <meta property="og:description" content="Revive la leyenda de Mazinger Z en 4K. Proyecto de restauración integral de los 92 episodios clásicos.">
+    <meta property="og:image" content="https://mazinger-z.com/assets/hero-bg.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mazinger-z.com/">
+    <meta property="twitter:title" content="Mazinger Z | 4K Restoration Project Official">
+    <meta property="twitter:description" content="Revive la leyenda de Mazinger Z en 4K. Proyecto de restauración integral de los 92 episodios clásicos.">
+    <meta property="twitter:image" content="https://mazinger-z.com/assets/hero-bg.jpg">
+
+    <link rel="icon" type="image/jpeg" href="assets/favicon.jpeg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#050505">
+    <link rel="apple-touch-icon" href="assets/favicon.jpeg">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" style="text-decoration: none;">Mazinger Project</a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Inicio</a>
+                <a href="episodes.html">Episodios</a>
+                <a href="beasts.html">Bestias</a>
+                <a href="cards.html">Cartas</a>
+                <a href="wallpapers.html">Wallpapers</a>
+                <a href="creator.html">Gō Nagai</a>
+                <a href="soundtrack.html">OST</a>
+            </div>
+            <div class="audio-controls-group">
+                <button id="musicToggle" class="audio-btn" onclick="toggleMusic()"
+                    title="Música de Fondo (Mazinger Theme)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+                    </svg>
+                </button>
+                <button id="fxToggle" class="audio-btn audio-active" onclick="toggleFx()"
+                    title="Efectos de Sonido (FX Tácticos)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 15c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1-13.06c.58.06 1.14.24 1.64.52l-1.45 1.45C12.85 4.09 12.44 4 12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8c0-.44-.09-.85-.31-1.23l1.45-1.45c.5.71.86 1.52.86 2.68 0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2c.34 0 .68.02 1.01.06zm7.06 3.01L19.06 6.01c.58.71.94 1.53.94 2.49 0 2.21-1.79 4-4 4-.96 0-1.78-.36-2.49-.94l-1.45 1.45c.87.87 2.07 1.49 3.44 1.49 2.76 0 5-2.24 5-5 0-1.37-.62-2.57-1.49-3.44z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero placeholder-hero">
+        <div class="radar-container">
+            <div class="radar">
+                <div class="radar-sweep"></div>
+                <div class="radar-circles"></div>
+                <div class="radar-crosshair"></div>
+                <div class="radar-blips">
+                    <div class="blip blip-1" title="Amenaza detectada: Garada K7"></div>
+                    <div class="blip blip-2" title="Amenaza detectada: Doublas M2"></div>
+                </div>
+            </div>
+            <div class="radar-status">
+                <span class="status-label">EN_ESPERA</span>
+                <span class="status-value">ESCANEO_ACTIVO</span>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>MAZINGER Z</h1>
+            <br>
+            <img class="banner" src="img/fondobanner.jpg" alt="Mazinger Z Logo">
+            <p>La leyenda del anime, restaurada y reescalada a 4K con Inteligencia Artificial. Disfruta de la serie completa (92 episodios) como nunca antes.</p>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <section id="characters" class="characters-section">
+            <h2 class="section-title">Héroes y Aliados</h2>
+            <div id="heroesContainer" class="characters-grid">
+                <!-- Dinámico -->
+            </div>
+
+            <h2 class="section-title" style="margin-top: 6rem; color: var(--primary-color);">Legión del Mal</h2>
+            <div id="villainsContainer" class="characters-grid">
+                <!-- Dinámico -->
+            </div>
+        </section>
+
+        <section id="restoration" class="restoration-section">
+            <div class="restoration-card">
+                <div class="tech-display">
+                    <div class="display-header">
+                        <span class="display-title">CORE_RESTORATION_SYSTEM / 4K_UPSCALING</span>
+                        <div class="live-indicator">
+                            <span class="status-blink">PROCESANDO</span>
+                            <div class="pulse-ring"></div>
+                        </div>
+                    </div>
+                    <div class="display-content">
+                        <div class="restoration-stats">
+                            <div class="stat-box">
+                                <span class="stat-label">FUENTES</span>
+                                <span class="stat-value">92 EPISODIOS ORIGINALES</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">OBJETIVO</span>
+                                <span class="stat-value">4K UHD MP4</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">MOTOR</span>
+                                <span class="stat-value">WAIFU2X / AI</span>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-label">PROGRESO DE RESTAURACIÓN TOTAL</div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: 100%;"></div>
+                            </div>
+                            <div class="progress-meta">
+                                <span>UNIDADES PROCESADAS: 92/92</span>
+                                <span>RESULTADO: SÚPER Z STEEL QUALITY 4K</span>
+                            </div>
+                        </div>
+                        <div class="restoration-log">
+                            <div class="log-line">> [SYSTEM] INICIALIZANDO RTX 3060 CORES... OK</div>
+                            <div class="log-line">> [GPU] CARGANDO PESOS MODELO REAL-ESRGAN... OK</div>
+                            <div class="log-line">> [INFO] MODO REESCALADO 4K SELECCIONADO (x4)</div>
+                            <div class="log-line">> [DEBUG] PROCESANDO FOTOGRAMAS CLAVE / AI RECONSTRUCTION...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="episodes">
+            <div class="controls">
+                <h2 class="section-title">Episodios Restaurados</h2>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Buscar episodio o por número...">
+                </div>
+            </div>
+
+            <div id="episodesGrid" class="episodes-grid">
+                <!-- Cargado dinámicamente desde episodes.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="video-container">
+                <video id="mainVideo" controls>
+                    <source src="" type="video/mp4">
+                    Tu navegador no soporta vídeos.
+                </video>
+                <div id="videoPlaceholder" class="video-placeholder">
+                    <p>🎬 El episodio reescalado a 4K aparecerá aquí una vez procesado.</p>
+                </div>
+            </div>
+            <div class="modal-info">
+                <h2 id="modalTitle">Título del Episodio</h2>
+                <p id="modalDesc">Descripción técnica de la restauración.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="audio_manager.js"></script>
+    <script src="episodes.js"></script>
+    <script src="characters.js"></script>
+    <script src="pwa_init.js"></script>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://www.facebook.com/ps4rioseras007" title="Facebook">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                </a>
+                <a href="https://x.com/alfrubrio" title="X">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.294 19.497h2.039L6.486 3.24H4.298l13.309 17.41z" />
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/mazinher_z/" title="Instagram">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                </a>
+                <a href="https://www.youtube.com/@AlfonsoRubioRioseras" title="YouTube">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                    </svg>
+                </a>
+                <a href="https://github.com/Rioseras007" title="GitHub">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                    </svg>
+                </a>
+            </div>
+            <p>&copy; 2026 Mazinger Z Project - Restauración 4K Finalizada</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

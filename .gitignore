@@ -1,0 +1,24 @@
+# Mazinger Z Project - Git Ignore Rules
+
+# Video Files (Copyrighted)
+episodios orginales/
+espisodios 4k/
+episodios originales/
+*.mp4
+*.avi
+*.mkv
+*.ts
+
+# Binaries
+bin/
+ffmpeg.exe
+ffprobe.exe
+
+# System Files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Temp files
+*.tmp
+*.log

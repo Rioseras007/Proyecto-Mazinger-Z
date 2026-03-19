@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mazinger Z | Arena de Duelo</title>
+    <link rel="icon" type="image/jpeg" href="assets/favicon.jpeg">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --game-bg: #0a0a0c;
+            --table-color: #0d1520;
+            --accent-blue: #007bff;
+            --accent-red: #ff3e3e;
+            --accent-green: #28a745;
+            --accent-yellow: #ffc107;
+        }
+
+        body.game-mode {
+            background-color: var(--game-bg);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .game-arena {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* CPU Zone */
+        .cpu-zone {
+            display: flex;
+            justify-content: center;
+            height: 150px;
+            gap: -40px;
+        }
+
+        .cpu-card-back {
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(135deg, #1a1a1a, #000);
+            border: 2px solid #333;
+            border-radius: 8px;
+            margin-left: -30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: 900;
+            font-size: 2rem;
+        }
+
+        /* Center Zone */
+        .center-zone {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+        }
+
+        .deck-pile,
+        .discard-pile {
+            width: 100px;
+            height: 150px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .deck-pile {
+            background: linear-gradient(135deg, #222, #000);
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 4px 4px 0 var(--primary-color);
+            transition: transform 0.2s;
+        }
+
+        .deck-pile:hover {
+            transform: translateY(-5px);
+        }
+
+        .deck-pile::after {
+            content: 'ROBAR';
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            font-weight: 800;
+        }
+
+        .discard-pile {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Player Zone */
+        .player-zone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .player-hand {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            height: 180px;
+            padding: 1rem;
+        }
+
+        .game-card {
+            width: 100px;
+            height: 150px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-30px) scale(1.1);
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(255, 30, 30, 0.3);
+        }
+
+        .game-card.playable {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        /* UI Overlays */
+        .game-status {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-family: monospace;
+            color: var(--text-secondary);
+        }
+
+        .status-msg {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .color-selector {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .color-options {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .color-opt {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .color-opt:hover {
+            transform: scale(1.2);
+            border-color: white;
+        }
+
+        .active-color-indicator {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+        }
+
+        .color-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+
+        .win-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            text-align: center;
+        }
+
+        .win-modal h1 {
+            font-size: 4rem;
+            color: var(--primary-color);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Card Preview */
+        .card-preview {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 450px;
+            background-size: cover;
+            background-position: center;
+            border: 5px solid white;
+            border-radius: 20px;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.8);
+            z-index: 1500;
+            display: none;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="game-mode">
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">Mazinger Project</div>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="beasts.html">Bestias</a>
+                <a href="episodes.html">Episodios</a>
+                <a href="cards.html">Cartas</a>
+                <a href="wallpapers.html">Wallpapers</a>
+                <a href="creator.html">Gō Nagai</a>
+                <a href="soundtrack.html">OST</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="game-arena">
+        <div class="game-status">
+            <div>SISTEMA_DE_COMBATE_V1.0</div>
+            <div id="statusMsg" class="status-msg">ESPERANDO JUGADA...</div>
+            <button class="filter-btn" onclick="toggleHelp()" style="margin-top: 1rem; font-size: 0.6rem;">VER
+                REGLAS</button>
+        </div>
+
+        <!-- Help Panel -->
+        <div id="helpPanel"
+            style="display: none; position: absolute; top: 8rem; left: 2rem; background: rgba(0,0,0,0.9); border: 1px solid var(--primary-color); padding: 1.5rem; width: 300px; z-index: 100; font-size: 0.8rem; border-radius: 8px; backdrop-filter: blur(10px);">
+            <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">CÓMO JUGAR</h3>
+            <ul style="color: #ccc; list-style: none; padding: 0;">
+                <li>• Suelta una carta que coincida en <b>color</b> o <b>número</b> con la del centro.</li>
+                <li>• Los <b>5</b> son comodines: puedes jugarlos cuando quieras y cambiar el color.</li>
+                <li>• Si no puedes jugar, pulsa el <b>MAZO (ROBAR)</b> hasta conseguir una válida.</li>
+                <li>• Gana quien se quede sin cartas primero.</li>
+            </ul>
+            <button onclick="toggleHelp()" style="margin-top: 1rem; width: 100%;"
+                class="filter-btn active">CERRAR</button>
+        </div>
+
+        <div class="active-color-indicator">
+            <span style="font-size: 0.7rem; color: #666;">COLOR_ACTIVO</span>
+            <div id="activeColorDot" class="color-dot" style="background: white;"></div>
+        </div>
+
+        <!-- CPU Hand -->
+        <div id="cpuHand" class="cpu-zone">
+            <!-- Dinámico -->
+        </div>
+
+        <!-- Discard and Deck -->
+        <div class="center-zone">
+            <div id="deck" class="deck-pile" onclick="playerDraw()"></div>
+            <div id="discardPile" class="discard-pile">
+                <!-- La última carta jugada aquí -->
+            </div>
+        </div>
+
+        <!-- Player Hand -->
+        <div class="player-zone">
+            <div id="playerHand" class="player-hand">
+                <!-- Dinámico -->
+            </div>
+            <div class="player-meta" style="color: #666; font-size: 0.7rem;">TU MANO (HAZ CLIC PARA JUGAR)</div>
+        </div>
+    </div>
+
+    <!-- Color Selector Modal (Wildcards) -->
+    <div id="colorSelector" class="color-selector">
+        <h2>SELECCIONA NUEVO COLOR TÁCTICO</h2>
+        <div class="color-options">
+            <div class="color-opt" style="background: var(--accent-blue);" onclick="selectColor('blue')"></div>
+            <div class="color-opt" style="background: var(--accent-red);" onclick="selectColor('red')"></div>
+            <div class="color-opt" style="background: var(--accent-green);" onclick="selectColor('green')"></div>
+            <div class="color-opt" style="background: var(--accent-yellow);" onclick="selectColor('yellow')"></div>
+        </div>
+    </div>
+
+    <!-- Win/Loss Modal -->
+    <!-- Card Preview Hover -->
+    <div id="cardPreview" class="card-preview"></div>
+
+    <div id="winModal" class="win-modal">
+        <h1 id="winTitle">¡VICTORIA!</h1>
+        <p id="winStats" style="margin: 2rem 0; color: #888;"></p>
+        <button class="filter-btn active" onclick="location.reload()">REINTENTAR MISIÓN</button>
+        <a href="index.html" style="margin-top: 1rem; color: #555; text-decoration: none;">VOLVER AL DASHBOARD</a>
+    </div>
+
+    <script>
+        function toggleHelp() {
+            const panel = document.getElementById('helpPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+    <script src="audio_manager.js"></script>
+    <script src="cards_game.js"></script>
+</body>
+
+</html>
