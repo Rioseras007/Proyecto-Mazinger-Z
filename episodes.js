@@ -93,17 +93,18 @@ const episodeData = [
     { id: 92, title: "El escarabajo asesino", desc: "El último desafío de la serie original.", quality: "4k" }
 ];
 
+let currentPage = 0;
+const EPISODES_PER_PAGE = 6;
+
 function renderEpisodes(filter = '', qualityFilter = 'all') {
     const grid = document.getElementById('episodesGrid');
+    const loadMoreContainer = document.getElementById('loadMoreContainer');
     if (!grid) return;
 
     grid.innerHTML = '';
 
     const filtered = episodeData.filter(ep => {
         const matchesSearch = ep.title.toLowerCase().includes(filter.toLowerCase()) || ep.id.toString() === filter;
-
-        // El filtro de 'original' debe mostrar todos los episodios de la serie, 
-        // ya que todos tienen su versión original (incluso si hay restauración 4K)
         const matchesQuality = qualityFilter === 'all' ||
             ep.quality === qualityFilter ||
             (qualityFilter === 'original' && ep.quality === '4k');
@@ -111,7 +112,15 @@ function renderEpisodes(filter = '', qualityFilter = 'all') {
         return matchesSearch && matchesQuality;
     });
 
-    filtered.forEach(ep => {
+    const totalPages = Math.ceil(filtered.length / EPISODES_PER_PAGE);
+    
+    // Ajustar página actual si el filtro reduce los resultados
+    if (currentPage >= totalPages) currentPage = Math.max(0, totalPages - 1);
+
+    const start = currentPage * EPISODES_PER_PAGE;
+    const episodesToRender = filtered.slice(start, start + EPISODES_PER_PAGE);
+
+    episodesToRender.forEach(ep => {
         const placeholderClass = `placeholder-${(ep.id % 6) + 1}`;
         const is4K = ep.quality === '4k';
         const badgeText = is4K ? '4K RESTAURADO' : 'ORIGINAL MP4';
@@ -135,6 +144,30 @@ function renderEpisodes(filter = '', qualityFilter = 'all') {
         card.addEventListener('click', () => openVideoModal(ep));
         grid.appendChild(card);
     });
+
+    // Gestionar botones de navegación
+    if (loadMoreContainer) {
+        loadMoreContainer.innerHTML = `
+            <button id="prevPageBtn" class="load-more-btn" ${currentPage === 0 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>ANTERIOR</button>
+            <div class="page-indicator">${currentPage + 1} / ${Math.max(1, totalPages)}</div>
+            <button id="nextPageBtn" class="load-more-btn" ${currentPage >= totalPages - 1 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>SIGUIENTE</button>
+        `;
+        
+        document.getElementById('prevPageBtn').addEventListener('click', () => changePage(-1));
+        document.getElementById('nextPageBtn').addEventListener('click', () => changePage(1));
+    }
+}
+
+function changePage(offset) {
+    const searchInput = document.getElementById('searchInput');
+    const activeQuality = document.querySelector('.filter-btn.active')?.dataset.quality || 'all';
+    const filter = searchInput?.value || '';
+
+    currentPage += offset;
+    renderEpisodes(filter, activeQuality);
+    
+    // Scroll suave hacia arriba de la sección de episodios
+    document.getElementById('episodesGrid').scrollIntoView({ behavior: 'smooth' });
 }
 
 let currentEpisode = null;
